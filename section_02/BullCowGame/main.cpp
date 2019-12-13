@@ -1,6 +1,3 @@
-/*This is the console executable, that makes use of the BullCow Class
-This acts as the view in a MVC pattern, and is responsible for all 
-user int32eraction.For game logic see the FBullCowGame class.*/
 
 #include<iostream>
 #include<string>
@@ -11,15 +8,16 @@ user int32eraction.For game logic see the FBullCowGame class.*/
 using FText = std::string;
 using int32 = int;
 
+
 void Print32int32ro();
 void PlayGame();
 FText GetValidGuess();
 bool AskToPlayAgain();
 void PrintGameSummary();
+
+
 FBullCowGame BCGame;
 
-
-// pocz¹tek naszej aplikacji
 int main()
 {
 	std::cout << BCGame.GetCurrentTry();
@@ -33,7 +31,7 @@ int main()
 
 	std::cout << std::endl;
 
-	return	0;
+	return	0; 
 }
 
 void PlayGame()
@@ -43,12 +41,9 @@ void PlayGame()
 	int32 MaxTryies = BCGame.GetMaxTries(); 
 	std::cout << MaxTryies << std::endl;
 
-	//Lopp for guesses
 	while (!BCGame.IsGameWon() && BCGame.GetCurrentTry() <= MaxTryies) {
 		FText Guess = GetValidGuess(); 
 
-		
-		//submit valid gues to the game
 		FBullCowCount BullCowCount = BCGame.SubmitValidGuess(Guess);
 
 		std::cout << " Bulls = " << BullCowCount.Bulls;
@@ -59,20 +54,24 @@ void PlayGame()
 	return;
 }
 
-//poczatek gierki
 void Print32int32ro()
 {
 
-	constexpr int32 WOLD_LENGHT = 5; // dziêki temu mo¿emy na bierz¹co kontrolowaæ zmienn¹ nie musz¹c jej zmieniac w ka¿dym miejscu w kodzie gdzie chcemy jej u¿yæ
-	std::cout << "Welcome to bulls and Cows, the wirdest game i've ever seen xD\n";
+
+	std::cout << "\n\nWelcome to bulls and Cows, the wirdest game i've ever seen xD\n";
 	std::cout << "So you realy try play of this? Ok, Then Lets start\n";
+	std::cout << std::endl;
+	std::cout << "                }   {       ___" << std::endl;
+	std::cout << "                (o o)      (o o)" << std::endl;
+	std::cout << "     /-----------\\ /        \\ /---------\\" << std::endl;
+	std::cout << "    / |  BULL   | 0          0|  COW   | \\" << std::endl;
+	std::cout << "   *  |-,-------|             |--------|  *" << std::endl;
+	std::cout << "      ^         ^             ^        ^ \n" << std::endl;
 	std::cout << "Can you guess the " << BCGame.GetHiddenWordLength();
 	std::cout << " letter isogram I'm thinking of?\n";
 	std::cout << std::endl;
 	return;
 }
-
-
 
 FText GetValidGuess()
 {
@@ -80,26 +79,26 @@ FText GetValidGuess()
 	EGuessStatus Status = EGuessStatus::Invalid_status;
 	do {
 		int32 CurrentTry = BCGame.GetCurrentTry();
-		std::cout << "Try " << CurrentTry << " Enter your Guess: ";
+		std::cout << "Try " << CurrentTry << " of " << BCGame.GetMaxTries();
+		std::cout << " Enter your Guess: ";
 		std::getline(std::cin, Guess);
 
 		Status = BCGame.CheckGuessValidiaty(Guess);
 		switch (Status)
 		{
 		case EGuessStatus::Wrong_Length:
-			std::cout << "please enter a " << BCGame.GetHiddenWordLength() << "Letter word.\n";
+			std::cout << "please enter a " << BCGame.GetHiddenWordLength() << "Letter word.\n\n";
 			break;
 		case EGuessStatus::Not_Isogram:
-			std::cout << "Please enter a word witout repeating letters.\n";
+			std::cout << "Please enter a word witout repeating letters.\n\n";
 			break;
 		case EGuessStatus::Not_Lowercase:
-			std::cout << "Pleas enter all lowercase letters.\n";
+			std::cout << "Pleas enter all lowercase letters.\n\n";
 			break;
 		default:
 			break;
 		}
-		std::cout << std::endl;
-	} while (Status != EGuessStatus::OK); // keep looking until we get no errors
+	} while (Status != EGuessStatus::OK); 
 	return Guess;
 }
 
@@ -108,6 +107,7 @@ bool AskToPlayAgain()
 	std::cout << "Do you wont play again? (y/n) ";
 	FText Response = "";
 	std::getline(std::cin, Response);
+	system("CLS");
 
 	return (Response[0] == 'y') || (Response[0] == 'Y');
 }

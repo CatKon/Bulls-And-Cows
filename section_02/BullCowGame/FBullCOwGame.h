@@ -24,28 +24,23 @@ class FBullCowGame
 {
 public:
 
-	FBullCowGame(); // Constructor
+	FBullCowGame();
 
 	int32 GetMaxTries() const;
 	int32 GetCurrentTry() const;
 	int32 GetHiddenWordLength() const;
 	bool IsGameWon() const;
-	EGuessStatus CheckGuessValidiaty(FString) const;// -||-
+	EGuessStatus CheckGuessValidiaty(FString) const;
 	
-	void Reset(); // to do make a mroe rich return value
+	void Reset(); 
 	FBullCowCount SubmitValidGuess(FString);
 
-	//previde a method for counting bulls & cows, and incresing turn #
 
-
-// please try and ignore this and focus on the interface above
 private:
-	// constructors for inicialization
 	int32 MyCurrentTry;
-	int32 MyMaxTries;
 	FString MyHiddenWord;
 	bool bGameIsWon;
 
 	bool IsIsogram(FString) const;
-
+	bool IsLowercase(FString) const;
 };
